@@ -9,6 +9,7 @@ import Dao.DiagnosticoDuenoDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,15 +19,18 @@ import java.sql.Time;
 import java.util.List;
 import modelo.Cita;
 import modelo.DiagnosticoDueno;
+import modelo.Usuario;
 
 /**
  *
  * @author jhoan
  */
+@WebServlet("/CitaController")
 public class CitaController extends HttpServlet {
 
     private final CitaDao dao = new CitaDao();
     private final DiagnosticoDuenoDao diagDao = new DiagnosticoDuenoDao();
+    Usuario usu=new Usuario();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,16 +70,41 @@ public class CitaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Por ejemplo, listar citas de un diagnóstico antes de mostrar el JSP
-        String accion = request.getParameter("accion");
-        if ("ListarPorDiag".equals(accion)) {
-            int idD = Integer.parseInt(request.getParameter("IdD"));
-            request.setAttribute("listaCitas", dao.listarCitasPorDiagnostico(idD));
-            request.getRequestDispatcher("veterinario/listaCitas.jsp")
-                   .forward(request, response);
-        } else {
-            response.sendRedirect("veterinario/veterinario.jsp");
+       String accion = request.getParameter("accion");
+    HttpSession session = request.getSession();
+
+    if ("ListarCitas".equalsIgnoreCase(accion)) {
+        int idRol = (int) session.getAttribute("idRol");
+
+        switch (idRol) {
+            case 2: // DUEÑO DE MASCOTA
+                int idU = (int) session.getAttribute("idUsuario");
+                List<Cita> listaDueno = dao.listarCitasPorDueno(idU);
+                request.setAttribute("listaCitas", listaDueno);
+                request.getRequestDispatcher("duenomascota/listaCitas.jsp").forward(request, response);
+                return;
+
+            case 3: // VETERINARIO
+                int idV = (int) session.getAttribute("idVeterinario");
+                List<Cita> listaVet = dao.listarCitasPorVeterinarioo(idV);
+                request.setAttribute("listaCitas", listaVet);
+                request.getRequestDispatcher("veterinario/listaCitas.jsp").forward(request, response);
+                return;
+
+            default:
+                response.sendRedirect("index.jsp");
+                return;
         }
+
+    } else if ("ListarPorDiag".equalsIgnoreCase(accion)) {
+        int idD = Integer.parseInt(request.getParameter("IdD"));
+        request.setAttribute("listaCitas", dao.listarCitasPorDiagnostico(idD));
+        request.getRequestDispatcher("veterinario/listaCitas.jsp").forward(request, response);
+        return;
+    } else {
+        response.sendRedirect("index.jsp");
+    }
+
     }
     @Override
      protected void doPost(HttpServletRequest request, HttpServletResponse response)

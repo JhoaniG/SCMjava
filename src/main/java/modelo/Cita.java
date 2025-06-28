@@ -10,6 +10,35 @@ public class Cita {
     private String MotivoCita;
     private String EstadoCita;
     private int IdD;
+    private String nombreMascota;
+private String nombreDueno;
+private String nombreVeterinario;
+
+    public String getNombreMascota() {
+        return nombreMascota;
+    }
+
+    public String getNombreDueno() {
+        return nombreDueno;
+    }
+
+    public String getNombreVeterinario() {
+        return nombreVeterinario;
+    }
+
+    public void setNombreMascota(String nombreMascota) {
+        this.nombreMascota = nombreMascota;
+    }
+
+    public void setNombreDueno(String nombreDueno) {
+        this.nombreDueno = nombreDueno;
+    }
+
+    public void setNombreVeterinario(String nombreVeterinario) {
+        this.nombreVeterinario = nombreVeterinario;
+    }
+    
+
 
     // Getters & setters
     public int getIdC() { return IdC; }

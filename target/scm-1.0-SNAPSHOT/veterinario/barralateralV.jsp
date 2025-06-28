@@ -27,7 +27,7 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="DiagnosticoController?accion=Listar">Consultar Diagnostico</a></li>
-          <li><a class="dropdown-item" href="../Formularios/ConsultarCita.html">Consultar Citas</a></li>
+          <li><a class="dropdown-item" href="CitaController?accion=ListarCitas">Consultar Citas</a></li>
         </ul>
       </li>
 

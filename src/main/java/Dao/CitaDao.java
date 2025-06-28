@@ -83,4 +83,67 @@ public class CitaDao {
         }
         return lista;
     }
+    
+    
+    
+    public List<Cita> listarCitasPorVeterinarioo(int idV) {
+    List<Cita> lista = new ArrayList<>();
+    String sql = "SELECT c.IdC, c.FechaCita, c.MotivoCita, c.EstadoCita, " +
+                 "m.Nombre AS nombreMascota, u.Nombre AS nombreDueno " +
+                 "FROM cita c " +
+                 "JOIN mascotas m ON c.IdM = m.IdM " +
+                 "JOIN usuarios u ON m.IdU = u.IdU " +
+                 "WHERE c.IdV = ?";
+    try {
+        conn = cn.Conexion();
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idV);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Cita c = new Cita();
+            c.setIdC(rs.getInt("IdC"));
+            c.setFechaCita(rs.getDate("FechaCita"));
+            c.setMotivoCita(rs.getString("MotivoCita"));
+            c.setEstadoCita(rs.getString("EstadoCita"));
+            c.setNombreMascota(rs.getString("nombreMascota"));
+            c.setNombreDueno(rs.getString("nombreDueno")); // Es el dueño de la mascota
+            lista.add(c);
+        }
+    } catch (Exception e) {
+        System.out.println("Error en listarCitasPorVeterinario: " + e.getMessage());
+    }
+    return lista;
 }
+public List<Cita> listarCitasPorDueno(int idU) {
+    List<Cita> lista = new ArrayList<>();
+    String sql = "SELECT c.IdC, c.FechaCita, c.MotivoCita, c.EstadoCita, " +
+                 "m.Nombre AS nombreMascota, uVet.Nombre AS nombreVeterinario " +
+                 "FROM cita c " +
+                 "JOIN mascotas m ON c.IdM = m.IdM " +
+                 "JOIN usuarios uDueno ON m.IdU = uDueno.IdU " +
+                 "JOIN veterinario v ON c.IdV = v.IdV " +
+                 "JOIN usuarios uVet ON v.IdU = uVet.IdU " +
+                 "WHERE uDueno.IdU = ?";
+
+    try {
+        conn = cn.Conexion();
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idU);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Cita c = new Cita();
+            c.setIdC(rs.getInt("IdC"));
+            c.setFechaCita(rs.getDate("FechaCita"));
+            c.setMotivoCita(rs.getString("MotivoCita"));
+            c.setEstadoCita(rs.getString("EstadoCita"));
+            c.setNombreMascota(rs.getString("nombreMascota"));
+            c.setNombreVeterinario(rs.getString("nombreVeterinario"));
+            lista.add(c);
+        }
+    } catch (Exception e) {
+        System.out.println("Error en listarCitasPorDueno: " + e.getMessage());
+    }
+    return lista;
+}
+}
+
