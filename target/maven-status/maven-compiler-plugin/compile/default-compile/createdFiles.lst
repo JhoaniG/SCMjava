@@ -6,6 +6,8 @@ com\mycompany\scm\resources\JakartaEE10Resource.class
 modelo\Cita.class
 Dao\UsuarioDao.class
 conf\Conexion.class
+controller\CitaController.class
+Dao\CitaDao.class
 Dao\DiagnosticoDuenoDao.class
 modelo\Dieta.class
 Dao\MascotaDao.class

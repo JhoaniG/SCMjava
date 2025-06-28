@@ -15,23 +15,7 @@
     <title>Seguimiento y control de mascotas</title>
 </head>
 
-
-<!--MENU-->
-<header class="header">
-  <div class="container-m">
-    <div class="btn-menu">
-      <label for="btn-menu">☰</label>
-    </div>
-    <div class="logo">
-      <h1>SCM</h1>
-    </div>
-    <nav class="menu">
-      <a href="#seccion1">Profecionales</a>
-      <a href="#seccion2">Mascotas</a>
-      <a href="#seccion3">Contactanos </a>
-    </nav>
-  </div>
-</header>
+<%@include file="/veterinario/menuV.jsp" %>
 
 <div class="capa">
   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -260,54 +244,7 @@
 
 
 
-<input type="checkbox" id="btn-menu">
-<div class="container-menu">
-  <div class="cont-menu">
-    <label for="btn-menu">✖️</label>
-    <nav>
-      <div class="card">
-        <img src="../Imagenes/veterinarian1.jpg" alt="Usuario">
-        <h4 class="card-title">Juanito alimaña</h4>
-              <h4 class="card-title">Juanito@gmail.com</h4>
-              <h4 class="card-title">30 anios</h4>
-              <h4 class="card-title">Usuario:Veterinario</h4>
-              <a href="../Formularios/editarperfil.html" class="btn btn-primary">Editar</a>
-      </div>
-
-      <!-- Dropdown de Citas -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Citas
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="../Formularios/SolicitarCita.html">Solicitar Citas</a></li>
-          <li><a class="dropdown-item" href="../Formularios/ConsultarCita.html">Consultar Citas</a></li>
-        </ul>
-      </li>
-
-      <!-- Links adicionales -->
-      <a class="nav-link"  href="actividad.html">Actividad</a>
-      <a class="nav-link" href="dieta.html">Dieta</a>
-
-      <!-- Dropdown de Mascotas -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Mascotas
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="MismascotasVete.html">Mis mascotas</a></li>
-          <li><a class="dropdown-item" href="../Formularios/formulario_registro_mascota.html">Agregar Mascota</a></li>
-        </ul>
-      </li>
-
-      <div class="text-center">
-        <button class="btn btn-danger">
-          <a href="../index.html" class="btn-a" data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</a>
-        </button>
-      </div>
-    </nav>
-  </div>
-</div>
+  <%@include file="/veterinario/barralateralV.jsp" %>
 
 <!--modal-->
 <!-- Modal Cerrar Sesión -->

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Dao;
 
 import conf.Conexion;
@@ -9,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Usuario;
 
 public class UsuarioDao {
@@ -102,7 +100,7 @@ public class UsuarioDao {
             ps.setString(4, u.getContrasena());
             ps.setString(5, u.getTelefono());
             ps.setString(6, u.getDireccion());
-            ps.setInt(7, u.getIdU()); // 🔥 Esta línea era necesaria
+            ps.setInt(7, u.getIdU());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al actualizar usuario: " + e.getMessage());
@@ -121,45 +119,71 @@ public class UsuarioDao {
             System.out.println("Error al eliminar usuario: " + e.getMessage());
         }
     }
-    public int obtenerUltimoIdInsertado() throws SQLException,  ClassNotFoundException{
-    int id = 0;
-    String sql = "SELECT MAX(IdU) AS IdU FROM usuarios";
-    conn = cn.Conexion();
-    ps = conn.prepareStatement(sql);
-    rs = ps.executeQuery();
-    if (rs.next()) {
-        id = rs.getInt("IdU");
-    }
-    return id;
-}
-public void insertarVeterinario(int IdU, String especialidad) throws ClassNotFoundException {
-    String sql = "INSERT INTO veterinario (Especialidad, IdU) VALUES (?, ?)";
-    try {
+
+    // Obtener último ID insertado
+    public int obtenerUltimoIdInsertado() throws SQLException, ClassNotFoundException {
+        int id = 0;
+        String sql = "SELECT MAX(IdU) AS IdU FROM usuarios";
         conn = cn.Conexion();
         ps = conn.prepareStatement(sql);
-        ps.setString(1, especialidad);
-        ps.setInt(2, IdU);
-        ps.executeUpdate();
-    } catch (SQLException e) {
-        System.out.println("Error insertando veterinario: " + e.getMessage());
-    }
-}
-public int obtenerIdVeterinarioPorIdUsuario(int idU) throws ClassNotFoundException {
-    int idV = 0;
-    String sql = "SELECT IdV FROM veterinario WHERE IdU = ?";
-    try {
-        conn = cn.Conexion();
-        ps = conn.prepareStatement(sql);
-        ps.setInt(1, idU);
         rs = ps.executeQuery();
         if (rs.next()) {
-            idV = rs.getInt("IdV");
+            id = rs.getInt("IdU");
         }
-    } catch (SQLException e) {
-        System.out.println("Error al obtener IdV del veterinario: " + e.getMessage());
+        return id;
     }
-    return idV;
-}
 
+    // Insertar en veterinario
+    public void insertarVeterinario(int IdU, String especialidad) throws ClassNotFoundException {
+        String sql = "INSERT INTO veterinario (Especialidad, IdU) VALUES (?, ?)";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, especialidad);
+            ps.setInt(2, IdU);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error insertando veterinario: " + e.getMessage());
+        }
+    }
+
+    // Obtener IdV del veterinario por IdU
+    public int obtenerIdVeterinarioPorIdUsuario(int idU) throws ClassNotFoundException {
+        int idV = 0;
+        String sql = "SELECT IdV FROM veterinario WHERE IdU = ?";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idU);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                idV = rs.getInt("IdV");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener IdV del veterinario: " + e.getMessage());
+        }
+        return idV;
+    }
+
+    // ✅ Listar todos los veterinarios
+    // Lista todos los veterinarios con su IdV y nombre
+public List<Usuario> listarVeterinarios() {
+    List<Usuario> lista = new ArrayList<>();
+    String sql = "SELECT v.IdV AS IdV, u.Nombre AS Nombre FROM veterinario v INNER JOIN usuarios u ON v.IdU = u.IdU";
+    try {
+        conn = cn.Conexion();
+        ps = conn.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Usuario v = new Usuario();
+            v.setIdU(rs.getInt("IdV")); // usamos idU como si fuera IdV para usar en el modal
+            v.setNombre(rs.getString("Nombre"));
+            lista.add(v);
+        }
+    } catch (Exception e) {
+        System.out.println("Error listando veterinarios: " + e.getMessage());
+    }
+    return lista;
+}
 }
 

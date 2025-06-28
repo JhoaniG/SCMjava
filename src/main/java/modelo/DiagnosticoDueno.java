@@ -1,35 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
 import java.sql.Date;
 
-/**
- *
- * @author jhoan
- */
 public class DiagnosticoDueno {
-    public int IdD;
-    public int IdM;
-    public int IdV;
-    public Date FechaDiagnostico;
-    public String Observaciones;
-    public String NombreM;
+
+    private int IdD;
+    private int IdM;
+    private int IdV;
+    private Date FechaDiagnostico;
+    private String Observaciones;
+    private String NombreM;            // Nombre de la mascota
+    private String NombreDueno;        // ✅ Nombre del dueño
+    private String NombreVeterinario;  // ✅ Nombre del veterinario
 
     public DiagnosticoDueno() {
     }
 
-    public DiagnosticoDueno(int IdD, int IdM, int IdV, Date FechaDiagnostico, String Observaciones, String NombreM) {
+    public DiagnosticoDueno(int IdD, int IdM, int IdV, Date FechaDiagnostico, String Observaciones, String NombreM, String NombreDueno, String NombreVeterinario) {
         this.IdD = IdD;
         this.IdM = IdM;
         this.IdV = IdV;
         this.FechaDiagnostico = FechaDiagnostico;
         this.Observaciones = Observaciones;
         this.NombreM = NombreM;
+        this.NombreDueno = NombreDueno;
+        this.NombreVeterinario = NombreVeterinario;
     }
 
+    // Getters
     public int getIdD() {
         return IdD;
     }
@@ -54,6 +52,15 @@ public class DiagnosticoDueno {
         return NombreM;
     }
 
+    public String getNombreDueno() {
+        return NombreDueno;
+    }
+
+    public String getNombreVeterinario() {
+        return NombreVeterinario;
+    }
+
+    // Setters
     public void setIdD(int IdD) {
         this.IdD = IdD;
     }
@@ -77,9 +84,13 @@ public class DiagnosticoDueno {
     public void setNombreM(String NombreM) {
         this.NombreM = NombreM;
     }
-    
-    
-    
-    
-    
+
+    public void setNombreDueno(String NombreDueno) {
+        this.NombreDueno = NombreDueno;
+    }
+
+    public void setNombreVeterinario(String NombreVeterinario) {
+        this.NombreVeterinario = NombreVeterinario;
+    }
 }
+

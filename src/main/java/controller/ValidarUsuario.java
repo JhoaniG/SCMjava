@@ -40,7 +40,7 @@ public class ValidarUsuario extends HttpServlet {
                 Logger.getLogger(ValidarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (usu.getCorreo() != null && usu.getContrasena() != null) {
+            if (usu != null && usu.getCorreo() != null && usu.getContrasena() != null) {
 
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("usuarioLogueado", usu);
@@ -51,9 +51,7 @@ public class ValidarUsuario extends HttpServlet {
                 if (usu.getIdR() == 1) {
                     request.setAttribute("usuario", usu);
                     request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
-                }
-
-                // DUEÑO
+                } // DUEÑO
                 else if (usu.getIdR() == 2) {
                     MascotaDao mascotaDao = new MascotaDao();
                     List<Mascota> listaMascotas;
@@ -63,12 +61,13 @@ public class ValidarUsuario extends HttpServlet {
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(ValidarUsuario.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    List<Usuario> listaVeterinarios = UsuarioDao.listarVeterinarios();
+                    sesion.setAttribute("listaVeterinarios", listaVeterinarios);
 
+                    
                     request.setAttribute("usuario", usu);
                     request.getRequestDispatcher("duenomascota/dueno.jsp").forward(request, response);
-                }
-
-                // VETERINARIO
+                } // VETERINARIO
                 else {
                     try {
                         int idVeterinario = UsuarioDao.obtenerIdVeterinarioPorIdUsuario(usu.getIdU());

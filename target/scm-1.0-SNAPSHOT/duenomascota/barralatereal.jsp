@@ -25,7 +25,7 @@
           Citas
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#diagnosticoModal">Registrar Diagnostico</a></li>
+          <li><a class="dropdown-item" href="DiagnosticoController" data-bs-toggle="modal" data-bs-target="#diagnosticoModal">Registrar Diagnostico</a></li>
           <li><a class="dropdown-item" href="../Formularios/ConsultarCita.html">Consultar Citas</a></li>
         </ul>
       </li>
