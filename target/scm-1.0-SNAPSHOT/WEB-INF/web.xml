@@ -4,8 +4,16 @@
         <servlet-name>DietaController</servlet-name>
         <servlet-class>controller.DietaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActividadFisicaController</servlet-name>
+        <servlet-class>controller.ActividadFisicaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DietaController</servlet-name>
         <url-pattern>/DietaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActividadFisicaController</servlet-name>
+        <url-pattern>/ActividadFisicaController</url-pattern>
     </servlet-mapping>
 </web-app>

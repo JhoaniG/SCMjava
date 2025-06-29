@@ -34,7 +34,7 @@
           </ul>
         </div>
 
-        <a class="btn btn-outline-dark w-100 mb-2" href="actividad.html">Actividad</a>
+        <a class="btn btn-outline-dark w-100 mb-2" href="ActividadFisicaController?accion=GenerarActividad">Actividad</a>
         <a class="btn btn-outline-dark w-100 mb-2" href="DietaController?accion=GenerarDieta">Dieta</a>
 
         <div class="dropdown mb-2">
