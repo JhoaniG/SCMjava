@@ -13,8 +13,23 @@ public class Dieta {
 
     // Campos auxiliares
     private String nombreMascota;
-    private String nombreDueno;
+private String nombreVeterinario;
 
+public String getNombreMascota() {
+    return nombreMascota;
+}
+
+public void setNombreMascota(String nombreMascota) {
+    this.nombreMascota = nombreMascota;
+}
+
+public String getNombreVeterinario() {
+    return nombreVeterinario;
+}
+
+public void setNombreVeterinario(String nombreVeterinario) {
+    this.nombreVeterinario = nombreVeterinario;
+}
     // Getters y Setters
     public int getIdDi() { return IdDi; }
     public void setIdDi(int idDi) { this.IdDi = idDi; }
@@ -31,9 +46,7 @@ public class Dieta {
     public String getTipoDieta() { return TipoDieta; }
     public void setTipoDieta(String tipoDieta) { this.TipoDieta = tipoDieta; }
 
-    public String getNombreMascota() { return nombreMascota; }
-    public void setNombreMascota(String nombreMascota) { this.nombreMascota = nombreMascota; }
-
-    public String getNombreDueno() { return nombreDueno; }
-    public void setNombreDueno(String nombreDueno) { this.nombreDueno = nombreDueno; }
+  
+  
+ 
 }

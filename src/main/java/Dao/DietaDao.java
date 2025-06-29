@@ -45,6 +45,7 @@ public class DietaDao {
                 Mascota m = new Mascota();
                 m.setIdM(rs.getInt("IdM"));
                 m.setNombre(rs.getString("Nombre"));
+                
                 lista.add(m);
             }
         } catch (Exception e) {
@@ -72,4 +73,68 @@ public class DietaDao {
         }
         return lista;
     }
+    public List<Mascota> listarMascotasPorDuenoDos(int idU) {
+        List<Mascota> lista = new ArrayList<>();
+        String sql = "SELECT * FROM mascotas WHERE IdU = ?";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idU);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Mascota m = new Mascota();
+                m.setIdM(rs.getInt("IdM"));
+                m.setNombre(rs.getString("Nombre"));
+                m.setGenero(rs.getString("Genero"));
+                
+                lista.add(m);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar mascotas: " + e.getMessage());
+        }
+        return lista;
+    }
+    
+    
+    public List<Dieta> obtenerDietasPorIdMascota(int idM) {
+    List<Dieta> lista = new ArrayList<>();
+    String sql = "SELECT d.IdDi, d.Descripcion, d.TipoDieta, m.Nombre AS nombreMascota, u.Nombre AS nombreVeterinario " +
+                 "FROM dieta d " +
+                 "JOIN mascotas m ON d.IdM = m.IdM " +
+                 "JOIN veterinario v ON d.IdV = v.IdV " +
+                 "JOIN usuarios u ON v.IdU = u.IdU " +
+                 "WHERE d.IdM = ?";
+
+    try {
+        conn = cn.Conexion();
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idM);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Dieta d = new Dieta();
+            d.setIdDi(rs.getInt("IdDi"));
+            d.setDescripcion(rs.getString("Descripcion"));
+            d.setTipoDieta(rs.getString("TipoDieta"));
+            d.setNombreMascota(rs.getString("nombreMascota")); // necesitas este campo en el modelo
+            d.setNombreVeterinario(rs.getString("nombreVeterinario")); // también este
+
+            lista.add(d);
+        }
+    } catch (Exception e) {
+        System.out.println("Error al obtener dietas por ID de mascota: " + e.getMessage());
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (conn != null) conn.close();
+        } catch (Exception ex) {
+            System.out.println("Error cerrando recursos: " + ex.getMessage());
+        }
+    }
+
+    return lista;
+}
+
+
 }

@@ -22,6 +22,7 @@ import modelo.Usuario;
  * @author jhoan
  */
 public class DietaController extends HttpServlet {
+
     private final DietaDao dao = new DietaDao();
 
     /**
@@ -84,7 +85,24 @@ public class DietaController extends HttpServlet {
                 request.setAttribute("idVeterinario", idVeterinario);
                 request.getRequestDispatcher("veterinario/crearDieta.jsp").forward(request, response);
                 break;
+            case "ConsultarMascotas":
+                Integer idD = (Integer) session.getAttribute("idUsuario");
+                if (idD == null) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
+                 // o por parámetro
+                List<Mascota> mascotasDueno = dao.listarMascotasPorDuenoDos(idD);
+                request.setAttribute("listaMascotas", mascotasDueno);
+                request.getRequestDispatcher("duenomascota/MascotasLis.jsp").forward(request, response);
+                break;
 
+            case "ConsultarDietasMascota":
+                int idMascota = Integer.parseInt(request.getParameter("idM"));
+                List<Dieta> dietas = dao.obtenerDietasPorIdMascota(idMascota);
+                request.setAttribute("dietas", dietas);
+                request.getRequestDispatcher("duenomascota/dietasPorMascota.jsp").forward(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
         }

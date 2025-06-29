@@ -31,7 +31,7 @@
       </li>
 
       <!-- Links adicionales -->
-      <a class="nav-link" href="../Formularios/consultadieta.html">Consultar Dieta</a>
+      <a class="nav-link" href="DietaController?accion=ConsultarMascotas">Consultar Dieta</a>
       <a class="nav-link" href="../Formularios/consultaact.html">Consultar Actividad Física</a>
       <a class="nav-link" href="../Formularios/ConsultarDiagnostico.html">Consultar Diagnóstico</a>
 
