@@ -14,6 +14,8 @@ public class ActividadFisica {
     public int IdV;
     public String Descripcion;
     public String TipoActividad;
+   
+
 
     public ActividadFisica() {
     }

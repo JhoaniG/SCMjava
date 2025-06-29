@@ -1,6 +1,7 @@
 C:\Proyectos\Scm\src\main\java\Dao\MascotaDao.java
 C:\Proyectos\Scm\src\main\java\Dao\UsuarioDao.java
 C:\Proyectos\Scm\src\main\java\modelo\Usuario.java
+C:\Proyectos\Scm\src\main\java\Dao\DietaDao.java
 C:\Proyectos\Scm\src\main\java\Dao\CitaDao.java
 C:\Proyectos\Scm\src\main\java\Dao\VeterinarioDao.java
 C:\Proyectos\Scm\src\main\java\controller\ValidarUsuario.java
@@ -16,5 +17,6 @@ C:\Proyectos\Scm\src\main\java\controller\DiagnosticoController.java
 C:\Proyectos\Scm\src\main\java\modelo\Dieta.java
 C:\Proyectos\Scm\src\main\java\modelo\Veterinario.java
 C:\Proyectos\Scm\src\main\java\com\mycompany\scm\resources\JakartaEE10Resource.java
+C:\Proyectos\Scm\src\main\java\controller\DietaController.java
 C:\Proyectos\Scm\src\main\java\modelo\DiagnosticoDueno.java
 C:\Proyectos\Scm\src\main\java\controller\CitaController.java

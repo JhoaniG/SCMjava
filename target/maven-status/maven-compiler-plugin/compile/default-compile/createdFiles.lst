@@ -3,6 +3,7 @@ controller\DiagnosticoController.class
 controller\MascotaController.class
 Dao\VeterinarioDao.class
 com\mycompany\scm\resources\JakartaEE10Resource.class
+controller\DietaController.class
 modelo\Cita.class
 Dao\UsuarioDao.class
 conf\Conexion.class
@@ -17,4 +18,5 @@ controller\UsuarioController.class
 modelo\Mascota.class
 com\mycompany\scm\JakartaRestConfiguration.class
 modelo\Veterinario.class
+Dao\DietaDao.class
 modelo\Usuario.class

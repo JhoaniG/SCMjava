@@ -4,64 +4,36 @@
  */
 package modelo;
 
-/**
- *
- * @author jhoan
- */
 public class Dieta {
-    public int IdDi;
-    public int IdM;
-    public int IdV;
-    public String Descripcion;
-    public String TipoDieta;
+    private int IdDi;
+    private int IdM;
+    private int IdV;
+    private String Descripcion;
+    private String TipoDieta;
 
-    public Dieta(int IdDi, int IdM, int IdV, String Descripcion, String TipoDieta) {
-        this.IdDi = IdDi;
-        this.IdM = IdM;
-        this.IdV = IdV;
-        this.Descripcion = Descripcion;
-        this.TipoDieta = TipoDieta;
-    }
+    // Campos auxiliares
+    private String nombreMascota;
+    private String nombreDueno;
 
-    public int getIdDi() {
-        return IdDi;
-    }
+    // Getters y Setters
+    public int getIdDi() { return IdDi; }
+    public void setIdDi(int idDi) { this.IdDi = idDi; }
 
-    public int getIdM() {
-        return IdM;
-    }
+    public int getIdM() { return IdM; }
+    public void setIdM(int idM) { this.IdM = idM; }
 
-    public int getIdV() {
-        return IdV;
-    }
+    public int getIdV() { return IdV; }
+    public void setIdV(int idV) { this.IdV = idV; }
 
-    public String getDescripcion() {
-        return Descripcion;
-    }
+    public String getDescripcion() { return Descripcion; }
+    public void setDescripcion(String descripcion) { this.Descripcion = descripcion; }
 
-    public String getTipoDieta() {
-        return TipoDieta;
-    }
+    public String getTipoDieta() { return TipoDieta; }
+    public void setTipoDieta(String tipoDieta) { this.TipoDieta = tipoDieta; }
 
-    public void setIdDi(int IdDi) {
-        this.IdDi = IdDi;
-    }
+    public String getNombreMascota() { return nombreMascota; }
+    public void setNombreMascota(String nombreMascota) { this.nombreMascota = nombreMascota; }
 
-    public void setIdM(int IdM) {
-        this.IdM = IdM;
-    }
-
-    public void setIdV(int IdV) {
-        this.IdV = IdV;
-    }
-
-    public void setDescripcion(String Descripcion) {
-        this.Descripcion = Descripcion;
-    }
-
-    public void setTipoDieta(String TipoDieta) {
-        this.TipoDieta = TipoDieta;
-    }
-    
-    
+    public String getNombreDueno() { return nombreDueno; }
+    public void setNombreDueno(String nombreDueno) { this.nombreDueno = nombreDueno; }
 }

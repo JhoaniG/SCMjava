@@ -3,8 +3,7 @@
     Created on : 27/06/2025, 9:21:18 a. m.
     Author     : jhoan
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!--MENU-->
 <header class="header">
   <div class="container-m">
@@ -21,3 +20,4 @@
     </nav>
   </div>
 </header>
+
