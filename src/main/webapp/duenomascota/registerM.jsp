@@ -26,7 +26,7 @@
           <h4><i class="fas fa-dog"></i> Registrar Nueva Mascota</h4>
         </div>
         <div class="card-body">
-          <form action="MascotaController" method="POST">
+          <form action="MascotaController" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
   <input type="hidden" name="accion" value="Registrar">
 
   <!-- Nombre -->
@@ -56,6 +56,10 @@
     <label class="form-label fw-bold text-primary">🐾 Raza</label>
     <input type="text" name="Raza" class="form-control form-control-lg rounded-pill" required placeholder="Ej: Labrador">
   </div>
+  <div class="mb-3">
+            <label for="foto" class="form-label">Foto de Perfil</label>
+            <input type="file" class="form-control" id="foto" name="Foto" accept="image/*">
+        </div>
 
   <!-- Botones -->
   <div class="text-center">

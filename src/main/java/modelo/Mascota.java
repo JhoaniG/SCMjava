@@ -17,6 +17,16 @@ public class Mascota {
     public String Genero;
     public Date FechaNacimineto;
     public String Raza;
+    public String Foto;
+
+    public String getFoto() {
+        return Foto;
+    }
+
+    public void setFoto(String Foto) {
+        this.Foto = Foto;
+    }
+    
 
     public Mascota() {
     }

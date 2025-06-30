@@ -14,6 +14,16 @@ public class ActividadFisica {
     // Nuevos atributos para la vista
     public String nombreMascota;
     public String nombreVeterinario;
+    private String Foto;
+
+    public String getFoto() {
+        return Foto;
+    }
+
+    public void setFoto(String Foto) {
+        this.Foto = Foto;
+    }
+    
 
     public ActividadFisica() {
     }

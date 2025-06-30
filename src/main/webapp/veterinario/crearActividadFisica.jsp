@@ -68,7 +68,7 @@
         <div class="form-card">
             <div class="form-title">📝 Registrar Actividad para Mascota</div>
 
-            <form action="ActividadFisicaController" method="post">
+            <form action="ActividadFisicaController" method="post"  class="needs-validation" novalidate enctype="multipart/form-data">
                 <input type="hidden" name="accion" value="RegistrarActividadFisica">
                 <input type="hidden" name="idV" value="${idVeterinario}">
 
@@ -111,6 +111,11 @@
                         <textarea name="descripcion" class="form-control form-control-lg" rows="4" placeholder="Describa la dieta sugerida para la mascota..." required></textarea>
                     </div>
                 </div>
+                
+                <div class="mb-3">
+                        <label for="foto" class="form-label">Foto de Dieta</label>
+                        <input type="file" class="form-control" id="foto" name="Foto" accept="image/*">
+                    </div>
 
                 <!-- Botones -->
                 <div class="text-end mt-4">

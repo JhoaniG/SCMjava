@@ -27,7 +27,7 @@
       <a class="nav-link" href="DietaController?accion=ConsultarMascotas">Consultar Dieta</a>
       <%-- ENLACE CORREGIDO PARA ACTIVIDAD FÍSICA --%>
       <a class="nav-link" href="ActividadFisicaController?accion=ConsultarMascotasActividad">Consultar Actividad Física</a>
-      <a class="nav-link" href="../Formularios/ConsultarDiagnostico.html">Consultar Diagnóstico</a>
+
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

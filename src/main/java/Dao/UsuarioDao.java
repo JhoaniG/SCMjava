@@ -19,7 +19,7 @@ public class UsuarioDao {
     // Validar inicio de sesión
     public Usuario Validar(String Correo, String Contrasena) throws ClassNotFoundException, SQLException {
         Usuario obj_usu = null;
-        String sql = "SELECT IdU, Nombre, Apellido, Correo, Contrasena, Telefono, Direccion, IdR FROM usuarios WHERE Correo=? AND Contrasena=?";
+        String sql = "SELECT IdU, Nombre, Apellido, Correo, Contrasena, Telefono, Direccion, IdR, Foto FROM usuarios WHERE Correo=? AND Contrasena=?";
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
@@ -36,6 +36,7 @@ public class UsuarioDao {
                 obj_usu.setTelefono(rs.getString("Telefono"));
                 obj_usu.setDireccion(rs.getString("Direccion"));
                 obj_usu.setIdR(rs.getInt("IdR"));
+                obj_usu.setFoto(rs.getString("Foto"));
             }
         } catch (SQLException e) {
             System.out.println("Error Validar " + e.getMessage());
@@ -45,7 +46,7 @@ public class UsuarioDao {
 
     // Insertar nuevo usuario
     public void InsertarUsuario(Usuario u) throws ClassNotFoundException {
-        String sql = "INSERT INTO usuarios(Nombre, Apellido, Correo, Contrasena, Telefono, Direccion, IdR) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios(Nombre, Apellido, Correo, Contrasena, Telefono, Direccion, IdR, Foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
@@ -56,6 +57,7 @@ public class UsuarioDao {
             ps.setString(5, u.getTelefono());
             ps.setString(6, u.getDireccion());
             ps.setInt(7, u.getIdR());
+            ps.setString(8, u.getFoto());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al ingresar usuario: " + e.getMessage());
@@ -81,6 +83,7 @@ public class UsuarioDao {
                 u.setTelefono(rs.getString("Telefono"));
                 u.setDireccion(rs.getString("Direccion"));
                 u.setIdR(rs.getInt("IdR"));
+                u.setFoto(rs.getString("Foto"));
             }
         } catch (Exception e) {
             System.out.println("Error al obtener usuario por ID: " + e.getMessage());
@@ -90,7 +93,7 @@ public class UsuarioDao {
 
     // Actualizar usuario
     public void actualizarUsuario(Usuario u) {
-        String sql = "UPDATE usuarios SET Nombre=?, Apellido=?, Correo=?, Contrasena=?, Telefono=?, Direccion=? WHERE IdU=?";
+        String sql = "UPDATE usuarios SET Nombre=?, Apellido=?, Correo=?, Contrasena=?, Telefono=?, Direccion=?, Foto=? WHERE IdU=?";
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
@@ -100,7 +103,8 @@ public class UsuarioDao {
             ps.setString(4, u.getContrasena());
             ps.setString(5, u.getTelefono());
             ps.setString(6, u.getDireccion());
-            ps.setInt(7, u.getIdU());
+            ps.setString(7, u.getFoto());
+            ps.setInt(8, u.getIdU());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al actualizar usuario: " + e.getMessage());
@@ -167,23 +171,22 @@ public class UsuarioDao {
 
     // ✅ Listar todos los veterinarios
     // Lista todos los veterinarios con su IdV y nombre
-public List<Usuario> listarVeterinarios() {
-    List<Usuario> lista = new ArrayList<>();
-    String sql = "SELECT v.IdV AS IdV, u.Nombre AS Nombre FROM veterinario v INNER JOIN usuarios u ON v.IdU = u.IdU";
-    try {
-        conn = cn.Conexion();
-        ps = conn.prepareStatement(sql);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            Usuario v = new Usuario();
-            v.setIdU(rs.getInt("IdV")); // usamos idU como si fuera IdV para usar en el modal
-            v.setNombre(rs.getString("Nombre"));
-            lista.add(v);
+    public List<Usuario> listarVeterinarios() {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT v.IdV AS IdV, u.Nombre AS Nombre FROM veterinario v INNER JOIN usuarios u ON v.IdU = u.IdU";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario v = new Usuario();
+                v.setIdU(rs.getInt("IdV"));
+                v.setNombre(rs.getString("Nombre"));
+                lista.add(v);
+            }
+        } catch (Exception e) {
+            System.out.println("Error listando veterinarios: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.out.println("Error listando veterinarios: " + e.getMessage());
+        return lista;
     }
-    return lista;
 }
-}
-

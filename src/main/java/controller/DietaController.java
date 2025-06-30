@@ -1,17 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import Dao.DietaDao;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter; // Asegúrate de que esta importación esté presente
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import modelo.Dieta;
 import modelo.Mascota;
@@ -21,6 +26,12 @@ import modelo.Usuario;
  *
  * @author jhoan
  */
+@WebServlet("/DietaController")
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+    maxFileSize = 1024 * 1024 * 10,      // 10MB
+    maxRequestSize = 1024 * 1024 * 50    // 50MB
+)
 public class DietaController extends HttpServlet {
 
     private final DietaDao dao = new DietaDao();
@@ -91,7 +102,6 @@ public class DietaController extends HttpServlet {
                     response.sendRedirect("login.jsp");
                     return;
                 }
-                 // o por parámetro
                 List<Mascota> mascotasDueno = dao.listarMascotasPorDuenoDos(idD);
                 request.setAttribute("listaMascotas", mascotasDueno);
                 request.getRequestDispatcher("duenomascota/MascotasLis.jsp").forward(request, response);
@@ -115,22 +125,63 @@ public class DietaController extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if ("RegistrarDieta".equalsIgnoreCase(accion)) {
+
             try {
                 int idM = Integer.parseInt(request.getParameter("idM"));
                 int idV = Integer.parseInt(request.getParameter("idV"));
                 String descripcion = request.getParameter("descripcion");
                 String tipoDieta = request.getParameter("tipoDieta");
+                
+                String fotoFileName = null;
+                try {
+                    Part filePart = request.getPart("Foto");
+                    if (filePart != null && filePart.getSize() > 0) {
+                        fotoFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+                        // --- Define el directorio base donde guardar las fotos (RUTA ORIGINAL DENTRO DE LA APLICACIÓN) ---
+                        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads"; // RUTA ORIGINAL
+                        // --- Fin de definición de directorio base ---
+
+                        File uploadDir = new File(uploadPath);
+                        if (!uploadDir.exists()) {
+                            boolean created = uploadDir.mkdirs();
+                            if (created) {
+                                System.out.println("Directorio de subidas para dietas creado: " + uploadPath);
+                            } else {
+                                System.err.println("ERROR: No se pudo crear el directorio de subidas para dietas: " + uploadPath);
+                            }
+                        }
+
+                        Path filePath = Paths.get(uploadPath + File.separator + fotoFileName);
+                        try (InputStream fileContent = filePart.getInputStream()) {
+                            Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
+                            System.out.println("Foto de dieta '" + fotoFileName + "' subida exitosamente a: " + filePath.toString());
+                        }
+                    } else {
+                        System.out.println("No se seleccionó ninguna foto para la dieta o el archivo está vacío.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Error al procesar la subida de la foto de la dieta: " + e.getMessage());
+                    e.printStackTrace();
+                    fotoFileName = null;
+                }
 
                 Dieta d = new Dieta();
                 d.setIdM(idM);
                 d.setIdV(idV);
                 d.setDescripcion(descripcion);
                 d.setTipoDieta(tipoDieta);
+                // Guarda la ruta completa relativa a la aplicación, incluyendo "uploads/"
+                d.setFoto(fotoFileName != null ? "uploads/" + fotoFileName : null); // RUTA ORIGINAL
 
                 dao.insertarDieta(d);
 
             } catch (Exception e) {
                 System.out.println("Error al registrar dieta: " + e.getMessage());
+                e.printStackTrace();
+                request.setAttribute("errorRegistroDieta", "Hubo un error al registrar la dieta: " + e.getMessage());
+                request.getRequestDispatcher("veterinario/crearDieta.jsp").forward(request, response);
             }
         }
 

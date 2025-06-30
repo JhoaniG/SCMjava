@@ -18,6 +18,9 @@ public class Usuario {
     public String Direccion;
     public int IdR;
     private String Foto;
+    
+
+    
 
     public Usuario() {
     }

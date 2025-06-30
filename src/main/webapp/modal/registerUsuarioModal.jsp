@@ -15,10 +15,14 @@
       </div>
 
       <!-- Formulario -->
-      <form action="UsuarioController" method="POST" class="needs-validation" novalidate>
+      <form action="UsuarioController" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="modal-body">
 
           <input type="hidden" name="accion" value="Registrar">
+          <div class="mb-3">
+            <label for="foto" class="form-label">Foto de Perfil</label>
+            <input type="file" class="form-control" id="foto" name="Foto" accept="image/*">
+        </div>
 
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>

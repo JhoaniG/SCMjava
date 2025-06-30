@@ -13,23 +13,34 @@ public class Dieta {
 
     // Campos auxiliares
     private String nombreMascota;
-private String nombreVeterinario;
+    private String nombreVeterinario;
+    // CAMBIAR A PRIVATE
+    private String Foto; // <--- ¡AQUÍ ESTÁ EL CAMBIO!
 
-public String getNombreMascota() {
-    return nombreMascota;
-}
+    public String getFoto() {
+        return Foto;
+    }
 
-public void setNombreMascota(String nombreMascota) {
-    this.nombreMascota = nombreMascota;
-}
+    public void setFoto(String Foto) {
+        this.Foto = Foto;
+    }
 
-public String getNombreVeterinario() {
-    return nombreVeterinario;
-}
+    public String getNombreMascota() {
+        return nombreMascota;
+    }
 
-public void setNombreVeterinario(String nombreVeterinario) {
-    this.nombreVeterinario = nombreVeterinario;
-}
+    public void setNombreMascota(String nombreMascota) {
+        this.nombreMascota = nombreMascota;
+    }
+
+    public String getNombreVeterinario() {
+        return nombreVeterinario;
+    }
+
+    public void setNombreVeterinario(String nombreVeterinario) {
+        this.nombreVeterinario = nombreVeterinario;
+    }
+
     // Getters y Setters
     public int getIdDi() { return IdDi; }
     public void setIdDi(int idDi) { this.IdDi = idDi; }

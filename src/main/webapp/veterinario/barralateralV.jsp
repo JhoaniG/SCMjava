@@ -13,7 +13,7 @@
     <label for="btn-menu" style="cursor:pointer; float: right;">✖️</label>
     <nav>
       <div class="card mb-3 text-center">
-        <img src="../Imagenes/veterinarian1.jpg" class="card-img-top rounded-circle" alt="Usuario" style="width: 100px; margin: 10px auto;">
+        <img src="${pageContext.request.contextPath}/Imagenes/veterinarian1.jpg" class="card-img-top rounded-circle" alt="Usuario" style="width: 100px; margin: 10px auto;">
         <div class="card-body">
           <h5 class="card-title">Juanito alimaña</h5>
           <p class="card-text">Juanito@gmail.com</p>
@@ -42,8 +42,8 @@
             Mascotas
           </a>
           <ul class="dropdown-menu w-100" aria-labelledby="dropdownMascotas">
-            <li><a class="dropdown-item" href="MismascotasVete.html">Mis mascotas</a></li>
-            <li><a class="dropdown-item" href="../Formularios/formulario_registro_mascota.html">Agregar Mascota</a></li>
+           <li><a class="dropdown-item" href="MascotaController?accion=Listar">Mis mascotas</a></li>
+          <li><a class="dropdown-item" href="MascotaController?accion=Agregar">Agregar Mascota</a></li>
           </ul>
         </div>
 

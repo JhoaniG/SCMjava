@@ -29,7 +29,14 @@ public class CitaDao {
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al insertar cita: " + e.getMessage());
+        } finally { // <-- Añadir este bloque
+        try {
+            if (ps != null) ps.close();
+            if (conn != null) conn.close();
+        } catch (Exception ex) {
+            System.out.println("Error cerrando recursos en insertarCita: " + ex.getMessage());
         }
+    }
     }
 
     /** Lista todas las citas de un veterinario */

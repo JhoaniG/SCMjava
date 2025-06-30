@@ -21,13 +21,13 @@
   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../Imagenes/img1.jpg" class="d-block w-100" alt="...">
+        <img src="${pageContext.request.contextPath}/Imagenes/img1.jpg" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="../Imagenes/img2.jpg" class="d-block w-100" alt="...">
+        <img src="${pageContext.request.contextPath}/Imagenes/img2.jpg" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="../Imagenes/img3.jpg" class="d-block w-100" alt="...">
+        <img src="${pageContext.request.contextPath}/Imagenes/img3.jpg" class="d-block w-100" alt="...">
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
             
             <!-- Columna Central: Imagen -->
             <div class="col-lg-2 py-4 text-center">
-                <img src="../Imagenes/perrotres.avif" alt="Imagen de nuestra historia" class="img-fluid rounded" style="max-height: 300px; object-fit: cover; width: 100%;">
+                <img src="${pageContext.request.contextPath}/Imagenes/perrotres.avif" alt="Imagen de nuestra historia" class="img-fluid rounded" style="max-height: 300px; object-fit: cover; width: 100%;">
             </div>
 
             <!-- Columna Derecha: Texto -->
@@ -76,7 +76,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="card border-0">
-          <img src="../Imagenes/veterinarian1.jpg" class="card-img-top" alt="Dr. Lucas Medina">
+          <img src="${pageContext.request.contextPath}/Imagenes/veterinarian1.jpg" class="card-img-top" alt="Dr. Lucas Medina">
           <div class="card-body">
             <h5 class="card-title">Dr. Lucas Medina</h5>
             <p class="card-text">Es un veterinario con 8 años de experiencia en medicina interna y cuidado preventivo. Se especializa en el diagnóstico temprano de enfermedades y la prevención de problemas de salud en mascotas.</p>
@@ -86,7 +86,7 @@
       </div>
       <div class="col-md-4">
         <div class="card border-0">
-          <img src="../Imagenes/veterinarian2.jpg" class="card-img-top" alt="Dra. Valeria Cruz">
+          <img src="${pageContext.request.contextPath}/Imagenes/veterinarian2.jpg" class="card-img-top" alt="Dra. Valeria Cruz">
           <div class="card-body">
             <h5 class="card-title">Dra. Valeria Cruz</h5>
             <p class="card-text">Especialista en cirugía veterinaria y atención de emergencias, con 10 años de experiencia en casos complejos y manejo quirúrgico de emergencia.</p>
@@ -96,7 +96,7 @@
       </div>
       <div class="col-md-4">
         <div class="card border-0">
-          <img src="../Imagenes/veterinarian3.jpg" class="card-img-top" alt="Dr. Tomás Ruiz">
+          <img src="${pageContext.request.contextPath}/Imagenes/veterinarian3.jpg" class="card-img-top" alt="Dr. Tomás Ruiz">
           <div class="card-body">
             <h5 class="card-title">Dr. Tomás Ruiz</h5>
             <p class="card-text">Con 6 años de experiencia en dermatología y tratamiento de alergias, se enfoca en soluciones efectivas para problemas de la piel en mascotas.</p>
@@ -120,7 +120,7 @@
     <div class="card mb-3 border-0">
       <div class="row g-0 align-items-center">
         <div class="col-md-5">
-          <img src="../Imagenes/mascota2.jpg" class="img-fluid rounded" alt="Max y Pipo">
+          <img src="${pageContext.request.contextPath}/Imagenes/mascota2.jpg" class="img-fluid rounded" alt="Max y Pipo">
         </div>
         <div class="col-md-7">
           <div class="card-body">
@@ -145,7 +145,7 @@
           </div>
         </div>
         <div class="col-md-5">
-          <img src="../Imagenes/mascota1.jpg" class="img-fluid rounded" alt="Milo">
+          <img src="${pageContext.request.contextPath}/Imagenes/mascota1.jpg" class="img-fluid rounded" alt="Milo">
         </div>
       </div>
     </div>

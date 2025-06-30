@@ -61,7 +61,7 @@
                         <div class="col">
                             <div class="card shadow-sm card-hover h-100 border-0">
                                 <div class="card-body text-center">
-                                    <img src="${pageContext.request.contextPath}/Imagenes/gato.jpg" class="card-img-avatar mb-3" alt="Avatar">
+                                    <img src="${pageContext.request.contextPath}/${dueno.foto}" class="card-img-avatar mb-3" alt="Avatar">
                                     <h5 class="card-title fw-bold text-dark">${dueno.nombre} ${dueno.apellido}</h5>
                                     <p class="text-muted mb-1"><i class="bi bi-person-badge-fill me-1"></i>ID: ${dueno.idU}</p>
                                     <p class="text-muted"><i class="bi bi-envelope-fill me-1"></i>${dueno.correo}</p>

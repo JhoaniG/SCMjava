@@ -42,7 +42,7 @@
     <c:otherwise>
       <c:forEach var="af" items="${actividades}">
         <div class="page-card">
-          <img src="Imagenes/gato.jpg" alt="Actividad de ${af.nombreMascota}">
+          <img src="${pageContext.request.contextPath}/${af.foto}" alt="Actividad de ${af.nombreMascota}">
           <div class="page-card-body">
             <h4>${af.tipoActividad}</h4>
             <p>${af.descripcion}</p>

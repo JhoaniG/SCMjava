@@ -19,7 +19,7 @@ public class DietaDao {
     Conexion cn = new Conexion();
 
     public void insertarDieta(Dieta d) {
-        String sql = "INSERT INTO dieta (IdM, IdV, Descripcion, TipoDieta) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO dieta (IdM, IdV, Descripcion, TipoDieta, Foto) VALUES (?, ?, ?, ?, ?)";
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
@@ -27,6 +27,7 @@ public class DietaDao {
             ps.setInt(2, d.getIdV());
             ps.setString(3, d.getDescripcion());
             ps.setString(4, d.getTipoDieta());
+            ps.setString(5, d.getFoto());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al insertar dieta: " + e.getMessage());
@@ -63,6 +64,7 @@ public class DietaDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario u = new Usuario();
+                u.setFoto(rs.getString("Foto"));
                 u.setIdU(rs.getInt("IdU"));
                 u.setNombre(rs.getString("Nombre"));
                 u.setApellido(rs.getString("Apellido"));
@@ -98,8 +100,8 @@ public class DietaDao {
     
     public List<Dieta> obtenerDietasPorIdMascota(int idM) {
     List<Dieta> lista = new ArrayList<>();
-    String sql = "SELECT d.IdDi, d.Descripcion, d.TipoDieta, m.Nombre AS nombreMascota, u.Nombre AS nombreVeterinario " +
-                 "FROM dieta d " +
+    String sql = "SELECT d.IdDi, d.Descripcion, d.TipoDieta, d.Foto, m.Nombre AS nombreMascota, u.Nombre AS nombreVeterinario" +
+                 " FROM dieta d " + // <-- Agregado el espacio aquí
                  "JOIN mascotas m ON d.IdM = m.IdM " +
                  "JOIN veterinario v ON d.IdV = v.IdV " +
                  "JOIN usuarios u ON v.IdU = u.IdU " +
@@ -116,8 +118,10 @@ public class DietaDao {
             d.setIdDi(rs.getInt("IdDi"));
             d.setDescripcion(rs.getString("Descripcion"));
             d.setTipoDieta(rs.getString("TipoDieta"));
+            d.setFoto(rs.getString("Foto"));
             d.setNombreMascota(rs.getString("nombreMascota")); // necesitas este campo en el modelo
-            d.setNombreVeterinario(rs.getString("nombreVeterinario")); // también este
+            d.setNombreVeterinario(rs.getString("nombreVeterinario"));
+            // también este
 
             lista.add(d);
         }

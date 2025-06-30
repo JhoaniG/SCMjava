@@ -17,7 +17,7 @@ public class ActividadFisicaDao {
 
     // Registrar una actividad física
     public void insertarActividad(ActividadFisica a) throws SQLException {
-        String sql = "INSERT INTO actividadfisica (IdM, IdV, Descripcion, TipoActividad) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO actividadfisica (IdM, IdV, Descripcion, TipoActividad, Foto) VALUES (?, ?, ?, ?, ?)";
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
@@ -25,6 +25,7 @@ public class ActividadFisicaDao {
             ps.setInt(2, a.getIdV());
             ps.setString(3, a.getDescripcion());
             ps.setString(4, a.getTipoActividad());
+            ps.setString(5, a.getFoto());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al insertar actividad física: " + e.getMessage());
@@ -100,7 +101,7 @@ public class ActividadFisicaDao {
      public List<ActividadFisica> obtenerActividadesPorIdMascota(int idMascota) {
         List<ActividadFisica> lista = new ArrayList<>();
         // Consulta que obtiene la descripción, tipo de actividad, nombre de mascota y nombre de veterinario
-        String sql = "SELECT af.Descripcion, af.TipoActividad, m.Nombre AS NombreMascota, u.Nombre AS NombreVeterinario " +
+        String sql = "SELECT af.Descripcion, af.TipoActividad,af.Foto, m.Nombre AS NombreMascota, u.Nombre AS NombreVeterinario " +
                      "FROM actividadfisica af " +
                      "JOIN mascotas m ON af.IdM = m.IdM " +
                      "JOIN veterinario v ON af.IdV = v.IdV " +
@@ -115,6 +116,7 @@ public class ActividadFisicaDao {
                 ActividadFisica af = new ActividadFisica();
                 af.setDescripcion(rs.getString("Descripcion"));
                 af.setTipoActividad(rs.getString("TipoActividad"));
+                af.setFoto(rs.getString("Foto"));
                 af.setNombreMascota(rs.getString("NombreMascota"));
                 af.setNombreVeterinario(rs.getString("NombreVeterinario"));
                 lista.add(af);
