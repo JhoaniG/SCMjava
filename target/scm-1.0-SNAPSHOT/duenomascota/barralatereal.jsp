@@ -1,10 +1,5 @@
-<%-- 
-    Document   : header
-    Created on : 23/06/2025, 5:52:04 p. m.
-    Author     : jhoan
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%-- Este JSP define la barra lateral desplegable --%>
 <input type="checkbox" id="btn-menu">
 <div class="container-menu">
   <div class="cont-menu">
@@ -19,7 +14,6 @@
         <a href="../Formularios/editarperfil.html" class="btn btn-primary">Editar</a>
       </div>
 
-      <!-- Dropdown de Citas -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Citas
@@ -30,12 +24,11 @@
         </ul>
       </li>
 
-      <!-- Links adicionales -->
       <a class="nav-link" href="DietaController?accion=ConsultarMascotas">Consultar Dieta</a>
-      <a class="nav-link" href="../Formularios/consultaact.html">Consultar Actividad Física</a>
+      <%-- ENLACE CORREGIDO PARA ACTIVIDAD FÍSICA --%>
+      <a class="nav-link" href="ActividadFisicaController?accion=ConsultarMascotasActividad">Consultar Actividad Física</a>
       <a class="nav-link" href="../Formularios/ConsultarDiagnostico.html">Consultar Diagnóstico</a>
 
-      <!-- Dropdown de Mascotas -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Mascotas
@@ -55,11 +48,6 @@
   </div>
 </div>
 
-
-
-
-<!--modal-->
-<!-- Modal Cerrar Sesión -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

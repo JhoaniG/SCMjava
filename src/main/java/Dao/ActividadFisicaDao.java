@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Dao;
 
 import conf.Conexion;
@@ -12,7 +8,6 @@ import modelo.ActividadFisica;
 import modelo.Mascota;
 import modelo.Usuario;
 
-
 public class ActividadFisicaDao {
 
     Connection conn;
@@ -20,24 +15,30 @@ public class ActividadFisicaDao {
     ResultSet rs;
     Conexion cn = new Conexion();
 
-   
     // Registrar una actividad física
     public void insertarActividad(ActividadFisica a) throws SQLException {
         String sql = "INSERT INTO actividadfisica (IdM, IdV, Descripcion, TipoActividad) VALUES (?, ?, ?, ?)";
-        try{
-        conn=cn.Conexion();
-        ps=conn.prepareStatement(sql);
-        ps.setInt(1, a.getIdM());
-        ps.setInt(2, a.getIdV());
-        ps.setString(3, a.getDescripcion());
-        ps.setString(4, a.getTipoActividad());
-        ps.executeUpdate();
-        }catch(Exception e){
-            System.out.println("eERRO al insertar DIeta " + e.getMessage());
-            
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, a.getIdM());
+            ps.setInt(2, a.getIdV());
+            ps.setString(3, a.getDescripcion());
+            ps.setString(4, a.getTipoActividad());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al insertar actividad física: " + e.getMessage());
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error cerrando recursos en insertarActividad: " + e.getMessage());
+            }
         }
     }
-    //lISTAR mascota par apode usarla
+
+    // Listar mascotas por dueño para poder usarla (este método ya existía)
     public List<Mascota> listarMascotasPorDueno(int idU) {
         List<Mascota> lista = new ArrayList<>();
         String sql = "SELECT * FROM mascotas WHERE IdU = ?";
@@ -54,15 +55,22 @@ public class ActividadFisicaDao {
             }
         } catch (Exception e) {
             System.out.println("Error al listar mascotas: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error cerrando recursos en listarMascotasPorDueno: " + e.getMessage());
+            }
         }
         return lista;
     }
 
-    
-    //lISTAR dueno Por Idu PARA poder mostrar en la vista
+    // Listar dueños por IdU para poder mostrar en la vista (este método ya existía)
     public List<Usuario> listarDuenos() {
         List<Usuario> lista = new ArrayList<>();
-        String sql = "SELECT * FROM usuarios WHERE IdR = 2"; // 3: dueños
+        String sql = "SELECT * FROM usuarios WHERE IdR = 2"; // 2: dueños
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
@@ -76,9 +84,52 @@ public class ActividadFisicaDao {
             }
         } catch (Exception e) {
             System.out.println("Error al listar dueños: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error cerrando recursos en listarDuenos: " + e.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    // Nuevo método para obtener actividades físicas por ID de mascota
+     public List<ActividadFisica> obtenerActividadesPorIdMascota(int idMascota) {
+        List<ActividadFisica> lista = new ArrayList<>();
+        // Consulta que obtiene la descripción, tipo de actividad, nombre de mascota y nombre de veterinario
+        String sql = "SELECT af.Descripcion, af.TipoActividad, m.Nombre AS NombreMascota, u.Nombre AS NombreVeterinario " +
+                     "FROM actividadfisica af " +
+                     "JOIN mascotas m ON af.IdM = m.IdM " +
+                     "JOIN veterinario v ON af.IdV = v.IdV " +
+                     "JOIN usuarios u ON v.IdU = u.IdU " +
+                     "WHERE af.IdM = ?";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idMascota);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ActividadFisica af = new ActividadFisica();
+                af.setDescripcion(rs.getString("Descripcion"));
+                af.setTipoActividad(rs.getString("TipoActividad"));
+                af.setNombreMascota(rs.getString("NombreMascota"));
+                af.setNombreVeterinario(rs.getString("NombreVeterinario"));
+                lista.add(af);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener actividades físicas por mascota: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error cerrando recursos en obtenerActividadesPorIdMascota: " + e.getMessage());
+            }
         }
         return lista;
     }
 }
-    
-

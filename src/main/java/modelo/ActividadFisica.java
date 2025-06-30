@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
 /**
@@ -14,8 +10,10 @@ public class ActividadFisica {
     public int IdV;
     public String Descripcion;
     public String TipoActividad;
-   
-
+    
+    // Nuevos atributos para la vista
+    public String nombreMascota;
+    public String nombreVeterinario;
 
     public ActividadFisica() {
     }
@@ -28,6 +26,17 @@ public class ActividadFisica {
         this.TipoActividad = TipoActividad;
     }
 
+    // Constructor con los nuevos campos para la vista
+    public ActividadFisica(int IdF, int IdM, int IdV, String Descripcion, String TipoActividad, String nombreMascota, String nombreVeterinario) {
+        this.IdF = IdF;
+        this.IdM = IdM;
+        this.IdV = IdV;
+        this.Descripcion = Descripcion;
+        this.TipoActividad = TipoActividad;
+        this.nombreMascota = nombreMascota;
+        this.nombreVeterinario = nombreVeterinario;
+    }
+    
     public int getIdF() {
         return IdF;
     }
@@ -67,9 +76,21 @@ public class ActividadFisica {
     public void setTipoActividad(String TipoActividad) {
         this.TipoActividad = TipoActividad;
     }
-    
-    
-    
-    
-    
+
+    // Nuevos getters y setters
+    public String getNombreMascota() {
+        return nombreMascota;
+    }
+
+    public void setNombreMascota(String nombreMascota) {
+        this.nombreMascota = nombreMascota;
+    }
+
+    public String getNombreVeterinario() {
+        return nombreVeterinario;
+    }
+
+    public void setNombreVeterinario(String nombreVeterinario) {
+        this.nombreVeterinario = nombreVeterinario;
+    }
 }
