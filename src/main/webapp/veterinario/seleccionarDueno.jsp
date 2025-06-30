@@ -57,6 +57,11 @@
                 <h2 class="text-center mb-4 text-primary">👥 Dueños de Mascotas Registrados</h2>
 
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="mb-4">
+    <a href="${pageContext.request.contextPath}/duenomascota/dueno.jsp" class="btn btn-light border">
+        <span class="text-dark">← Volver al Inicio</span>
+    </a>
+</div>
                     <c:forEach var="dueno" items="${listaDuenos}">
                         <div class="col">
                             <div class="card shadow-sm card-hover h-100 border-0">

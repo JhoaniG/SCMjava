@@ -29,21 +29,21 @@
             Citas
           </a>
           <ul class="dropdown-menu w-100" aria-labelledby="dropdownCitas">
-            <li><a class="dropdown-item" href="DiagnosticoController?accion=Listar">Consultar Diagnóstico</a></li>
-            <li><a class="dropdown-item" href="CitaController?accion=ListarCitas">Consultar Citas</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/DiagnosticoController?accion=Listar">Consultar Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CitaController?accion=ListarCitas">Consultar Citas</a></li>
           </ul>
         </div>
 
-        <a class="btn btn-outline-dark w-100 mb-2" href="ActividadFisicaController?accion=GenerarActividad">Actividad</a>
-        <a class="btn btn-outline-dark w-100 mb-2" href="DietaController?accion=GenerarDieta">Dieta</a>
+        <a class="btn btn-outline-dark w-100 mb-2" href="${pageContext.request.contextPath}/ActividadFisicaController?accion=GenerarActividad">Actividad</a>
+        <a class="btn btn-outline-dark w-100 mb-2" href="${pageContext.request.contextPath}/DietaController?accion=GenerarDieta">Dieta</a>
 
         <div class="dropdown mb-2">
           <a class="btn btn-outline-dark dropdown-toggle w-100" href="#" id="dropdownMascotas" data-bs-toggle="dropdown" aria-expanded="false">
             Mascotas
           </a>
           <ul class="dropdown-menu w-100" aria-labelledby="dropdownMascotas">
-           <li><a class="dropdown-item" href="MascotaController?accion=Listar">Mis mascotas</a></li>
-          <li><a class="dropdown-item" href="MascotaController?accion=Agregar">Agregar Mascota</a></li>
+           <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MascotaController?accion=Listar">Mis mascotas</a></li>
+          <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MascotaController?accion=Agregar">Agregar Mascota</a></li>
           </ul>
         </div>
 

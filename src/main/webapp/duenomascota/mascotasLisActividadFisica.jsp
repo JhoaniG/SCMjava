@@ -24,7 +24,11 @@
 <main style="margin-top: 90px; margin-left: 250px; padding: 20px;">
     <div class="container">
         <h2 class="mb-4 text-primary">🐾 Mis Mascotas para Actividad Física</h2>
-
+<div class="mb-4">
+    <a href="${pageContext.request.contextPath}/duenomascota/dueno.jsp" class="btn btn-light border">
+        <span class="text-dark">← Volver al Inicio</span>
+    </a>
+</div>
         <c:choose>
             <c:when test="${empty listaMascotas}">
                 <div class="alert alert-warning">No tienes mascotas registradas.</div>

@@ -11,8 +11,22 @@
         <h4>Pedro@gmail.com</h4>
         <h4>18 años</h4>
         <h4>Usuario: Dueño de mascota</h4>
-        <a href="../Formularios/editarperfil.html" class="btn btn-primary">Editar</a>
+       <a href="${pageContext.request.contextPath}/Formularios/editarperfil.html" class="btn btn-primary btn-sm">Editar perfil</a>
       </div>
+        <%-- Enlace corregido para editar perfil --%>
+          
+
+          <%-- Enlace corregido para DietaController --%>
+          
+
+          <%-- Enlace corregido para ActividadFisicaController --%>
+         
+
+          <%-- Enlace corregido para CitaController --%>
+          
+
+          <%-- Botón Cerrar Sesión --%>
+          
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,13 +34,13 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="DiagnosticoController" data-bs-toggle="modal" data-bs-target="#diagnosticoModal">Registrar Diagnostico</a></li>
-          <li><a class="dropdown-item" href="CitaController?accion=ListarCitas">Consultar Citas</a></li>
+          <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CitaController?accion=ListarCitas">Consultar Citas</a></li>
         </ul>
       </li>
 
-      <a class="nav-link" href="DietaController?accion=ConsultarMascotas">Consultar Dieta</a>
+      <a class="nav-link" href="${pageContext.request.contextPath}/DietaController?accion=ConsultarMascotas">Consultar Dieta</a>
       <%-- ENLACE CORREGIDO PARA ACTIVIDAD FÍSICA --%>
-      <a class="nav-link" href="ActividadFisicaController?accion=ConsultarMascotasActividad">Consultar Actividad Física</a>
+       <a class="nav-link" href="${pageContext.request.contextPath}/ActividadFisicaController?accion=ConsultarMascotasActividad">Consultar Actividad Física</a>
 
 
       <li class="nav-item dropdown">
@@ -34,14 +48,14 @@
           Mascotas
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="MascotaController?accion=Listar">Mis mascotas</a></li>
-          <li><a class="dropdown-item" href="MascotaController?accion=Agregar">Agregar Mascota</a></li>
+          <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MascotaController?accion=Listar">Mis mascotas</a></li>
+          <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MascotaController?accion=Agregar">Agregar Mascota</a></li>
         </ul>
       </li>
 
       <div class="text-center">
         <button class="btn btn-danger">
-          <a href="../index.html" class="btn-a" data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</a>
+          <button type="button" class="btn btn-danger" onclick="window.location.replace('${pageContext.request.contextPath}/index.html')">Cerrar Sesión</button>
         </button>
       </div>
     </nav>

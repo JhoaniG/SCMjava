@@ -14,21 +14,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCM - Consulta de Actividad Física</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stylos.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stylos.css">
-    <%-- <link rel="stylesheet" href="../stylos/stylos.css"> --%> <%-- Esta ruta puede ser redundante o incorrecta --%>
 
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
 </head>
 <body>
 
     <%@include file="/duenomascota/menu.jsp" %>
+    <%@include file="/duenomascota/barralatereal.jsp" %>
 
 <div class="container text-center mt-5">
   <h1 class="header-title">SCM - Consulta de Actividad Física</h1>
   <p class="lead">Consulta la actividad física recomendada para tu mascota</p>
+</div>
+
+<div class="container mt-3 text-center">
+    <%-- Botón Volver (manteniendo el enlace a la lista de mascotas de actividad) --%>
+    <a href="${pageContext.request.contextPath}/ActividadFisicaController?accion=ConsultarMascotasActividad" class="btn btn-secondary">
+        ← Volver a Mis Mascotas
+    </a>
 </div>
 
 <div class="page-cards-container">
@@ -48,7 +54,7 @@
             <p>${af.descripcion}</p>
             <small class="text-muted d-block">🐾 Mascota: ${af.nombreMascota}</small>
             <small class="text-muted d-block">👩‍⚕️ Vet.: Dr.&nbsp;${af.nombreVeterinario}</small>
-            <a href="#" class="btn mt-2">Ver más</a>
+            <%-- Botón "Ver más" REMOVIDO --%>
           </div>
         </div>
       </c:forEach>
@@ -91,19 +97,60 @@
   </div>
 </footer>
 
-<%@include file="/duenomascota/barralatereal.jsp" %>
-
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="eventModalLabel">Añadir Nota para el <span id="eventDateDisplay"></span></h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="eventTitle">Descripción de la nota:</label>
+          <textarea class="form-control" id="eventTitle" rows="4" placeholder="Escribe aquí tu nota o recordatorio..."></textarea>
+        </div>
+        <small class="form-text text-muted">Esta nota se guardará localmente en tu calendario.</small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveEventBtn">Guardar Nota</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="successModalLabel">¡Éxito!</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-check-circle text-success" style="font-size: 3rem; margin-bottom: 15px;"></i>
+        <p>Nota guardada correctamente.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
+    let selectedDate = null; // Para almacenar la fecha seleccionada
 
-    // ======== FECHA ACTUAL EN FORMATO YYYY-MM-DD ========
     const today = new Date().toISOString().split('T')[0];
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -111,6 +158,7 @@
       locale: 'es',
       selectable: true,
       editable: false,
+      events: [], // Inicializa con un array de eventos vacío si no cargas eventos de base de datos
 
       headerToolbar: {
         left: 'prev,next today',
@@ -118,30 +166,48 @@
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
 
-      // Bloquea cualquier fecha anterior a hoy
       validRange: { start: today },
 
       dateClick: function (info) {
-        // Evita doble validación (por si cambian validRange más adelante)
         if (info.dateStr < today) {
-          alert('No puedes programar actividades físicas en fechas pasadas.');
+          alert('No puedes programar notas en fechas pasadas.'); // Mensaje adaptado para notas genéricas
           return;
         }
 
-        const activityEvent = prompt('Ingrese la actividad física para el ' + info.dateStr);
-        if (activityEvent) {
-          calendar.addEvent({
-            title: activityEvent,
-            start: info.dateStr,
-            allDay: true
-          });
-          alert('Actividad física añadida para el ' + info.dateStr);
-        }
+        selectedDate = info.dateStr; // Almacena la fecha seleccionada
+        document.getElementById('eventDateDisplay').innerText = info.dateStr; // Muestra la fecha en el modal
+        $('#eventModal').modal('show'); // Muestra el modal de Bootstrap para añadir nota
       }
     });
 
     calendar.render();
+
+    document.getElementById('saveEventBtn').addEventListener('click', function() {
+        const eventTitle = document.getElementById('eventTitle').value.trim();
+
+        if (eventTitle) {
+            calendar.addEvent({
+                title: eventTitle,
+                start: selectedDate,
+                allDay: true // Si la nota es para todo el día
+            });
+            $('#eventModal').modal('hide'); // Oculta el modal de añadir nota
+            document.getElementById('eventTitle').value = ''; // Limpia el textarea
+
+            // Mostrar el modal de éxito
+            $('#successModal').modal('show');
+            // Opcional: ocultar el modal de éxito automáticamente después de unos segundos
+            setTimeout(function() {
+                $('#successModal').modal('hide');
+            }, 2000); // 2 segundos
+        } else {
+            alert('Por favor, ingresa una descripción para la nota.');
+        }
+    });
+
+    // Limpiar el campo del modal cuando se cierra
+    $('#eventModal').on('hidden.bs.modal', function () {
+        document.getElementById('eventTitle').value = '';
+    });
   });
 </script>
-</body>
-</html>

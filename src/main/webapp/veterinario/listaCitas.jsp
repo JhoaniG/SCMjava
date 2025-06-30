@@ -59,9 +59,9 @@
   </div>
 
   <div class="text-center mt-4">
-    <a href="veterinario/veterinario.jsp" class="btn btn-outline-secondary">
-      <i class="fas fa-arrow-left me-1"></i> Volver al Panel
-    </a>
+   <a href="${pageContext.request.contextPath}/veterinario/veterinario.jsp" class="btn btn-outline-secondary">
+  <i class="fas fa-arrow-left me-1"></i> Volver al Panel
+</a>
   </div>
 </div>
 

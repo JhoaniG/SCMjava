@@ -23,6 +23,11 @@
 
 <div class="container mt-5">
     <h2 class="text-center mb-4" style="color: #333;">🐶 Mis Mascotas</h2>
+    <div class="mb-4">
+    <a href="${pageContext.request.contextPath}/duenomascota/dueno.jsp" class="btn btn-light border">
+        <span class="text-dark">← Volver al Inicio</span>
+    </a>
+</div>
 
     <div class="row">
         <%
